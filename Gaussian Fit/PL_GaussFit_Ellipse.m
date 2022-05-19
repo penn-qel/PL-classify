@@ -21,7 +21,7 @@ function [BestFitNew,FitOptions,Data] = PL_GaussFit_Ellipse(emitters,dataStruct,
 %Load PL image and binarize 
 pl = dataStruct.data.plScan(:,:,1); 
 res = mean(diff(dataStruct.data.xCoords)) ; 
-thres = adaptthresh(mat2gray(pl),0.2) ; 
+thres = adaptthresh(mat2gray(pl), 0.3,'NeighborhoodSize',[51 51]);
 B = imbinarize(mat2gray(pl),thres);
 xCoords = dataStruct.data.xCoords;
 yCoords = dataStruct.data.yCoords;
@@ -56,8 +56,9 @@ end
 %initialize emitter center, width, height from symmetric fit
 clear startpoints startWidth bgval EstHts Posn Width Bkgnd Height 
 startpoints = BestFitSymmetric(iE).Posn(:,1:2);
-StartWidth = BestFitSymmetric(iE).Width(:); %[0.15, 0.15]; % Estimate for Gaussian st.dev (microns)
-bgval = BestFitSymmetric(iE).Bkgnd
+[r,c] = size(BestFitSymmetric(iE).Width(:)) ; 
+StartWidth = 0.15.*ones(r,c); %[0.15, 0.15]; % Estimate for Gaussian st.dev (microns)
+bgval = BestFitSymmetric(iE).Bkgnd;
 EstHts = BestFitSymmetric(iE).Height(:) ;
 FitOptions.StartHts = EstHts ; % starting amplitudes (scalar or vector)
 np=BestFitSymmetric(iE).np; %emitters in the region

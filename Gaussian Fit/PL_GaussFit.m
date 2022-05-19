@@ -21,7 +21,7 @@ function [BestFitNew,FitOptions,Data] = PL_GaussFit(emitters,dataStruct,iEvec, w
 %Load PL image and binarize
 pl = dataStruct.data.plScan(:,:,1); 
 res = mean(diff(dataStruct.data.xCoords)) ; 
-thres = adaptthresh(mat2gray(pl),0.2) ; 
+thres = adaptthresh(mat2gray(pl), 0.3,'NeighborhoodSize',[51 51]);
 B = imbinarize(mat2gray(pl),thres);
 xCoords = dataStruct.data.xCoords;
 yCoords = dataStruct.data.yCoords;
