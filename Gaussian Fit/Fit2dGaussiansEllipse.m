@@ -1,6 +1,5 @@
 function [FitResult,BestFit,Errs,bfpars] = Fit2dGaussiansEllipse(data,fitopts)
-% Leah rewriting Fit2dGaussians to fit non-symmetric peaks to account for
-% error/skew in the confocal setup  
+
 
 
 %Function to fit 2d data to a set of (not symmetric) Gaussian peaks
